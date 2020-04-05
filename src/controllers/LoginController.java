@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,6 +47,12 @@ public class LoginController extends HttpServlet {
 		String name = request.getParameter("uname");
 		String password = request.getParameter("password");
 		
+		Integer count = (int)(long) getServletContext().getAttribute("counter");
+		
+		++count;
+		ServletContext sc = getServletContext();
+		sc.setAttribute("counter", count);
+		
 		if(name == null || name.equals("")) {
 			errors.add("Name cannot be empty!");
 		}
@@ -54,11 +61,12 @@ public class LoginController extends HttpServlet {
 		
 		try {
 			if(UserDAO.getInstance().loginVerification(name, password)) {
-				request.getRequestDispatcher("page.html").forward(request, response);
+				request.getSession().setAttribute("user", name);
+				request.getRequestDispatcher("frontPage.jsp").forward(request, response);
 			} else {
 				errors.add("Username and/or password combination is wrong!");
 				request.setAttribute("errors", errors);
-				request.getRequestDispatcher("LoginView").forward(request, response);
+				request.getRequestDispatcher("LoginRegisterView.jsp").forward(request, response);
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

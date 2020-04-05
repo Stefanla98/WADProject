@@ -109,6 +109,29 @@ public class UserDAO {
 		return finalStatus;
 	}
 	
+	public boolean makeReservation(String fName, String lName, String email, String telephone, String date, 
+			String noGuests, String timeF, String timeT) throws SQLException {
+		
+		String sql = "INSERT INTO reservations (firstName, lastName, email, telephone, date, noGuests, timeFrom, timeTo) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?);"; 
+		
+		try (Connection connection = DBConnection.getConnection();
+				PreparedStatement prep = connection.prepareStatement(sql);
+			){
+			prep.setString(1, fName);
+			prep.setString(2, lName);
+			prep.setString(3, email);
+			prep.setString(4, telephone);
+			prep.setString(5, date);
+			prep.setString(6, noGuests);
+			prep.setString(7, timeF);
+			prep.setString(8, timeT);
+			prep.execute();
+		}
+		
+		return true;
+	}
+	
 	
 	public static String getHash(String password) {
 		MessageDigest digest=null;

@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,13 +50,19 @@ public class RegistrationController extends HttpServlet {
 		String name = request.getParameter("uname");
 		boolean userExist = false;
 		
+		Integer count = (int)(long) getServletContext().getAttribute("counter");
+		
+		++count;
+		ServletContext sc = getServletContext();
+		sc.setAttribute("counter", count);
+		
 		if(name == null || name.equals("")) {
 			errorsReg.add("Name cannot be empty!");
 		}
 		
 		if(!errorsReg.isEmpty()) {
 			request.setAttribute("errorsReg", errorsReg);
-			request.getRequestDispatcher("LoginView").forward(request, response);
+			request.getRequestDispatcher("LoginRegisterView.jsp").forward(request, response);
 		}
 		
 		PrintWriter pw = response.getWriter();
@@ -65,7 +72,7 @@ public class RegistrationController extends HttpServlet {
 				errorsReg.add("Username already exists!");
 				userExist = true;
 				request.setAttribute("errorsReg", errorsReg);
-				request.getRequestDispatcher("LoginView").forward(request, response);
+				request.getRequestDispatcher("LoginRegisterView.jsp").forward(request, response);
 				
 			}
 		} catch (ClassNotFoundException e) {
@@ -82,7 +89,7 @@ public class RegistrationController extends HttpServlet {
 						request.getParameter("tel"), request.getParameter("country"), request.getParameter("maillist"));
 				errorsReg.add("Successfully Registered! Please Sign in!");
 				request.setAttribute("errors", errorsReg);
-				request.getRequestDispatcher("LoginView").forward(request, response);
+				request.getRequestDispatcher("LoginRegisterView.jsp").forward(request, response);
 			}
 			
 		} catch (ClassNotFoundException e1) {
