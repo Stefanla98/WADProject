@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.UserDAO;
+import email.MailSender;
 
 /**
  * Servlet implementation class LoginController
@@ -46,12 +47,6 @@ public class LoginController extends HttpServlet {
 		List<String> errors = new ArrayList<>();
 		String name = request.getParameter("uname");
 		String password = request.getParameter("password");
-		
-		Integer count = (int)(long) getServletContext().getAttribute("counter");
-		
-		++count;
-		ServletContext sc = getServletContext();
-		sc.setAttribute("counter", count);
 		
 		if(name == null || name.equals("")) {
 			errors.add("Name cannot be empty!");

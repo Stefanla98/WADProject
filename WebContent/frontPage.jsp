@@ -49,9 +49,9 @@
 	                
                 <li><a href="#special-offser">Offers</a></li>
                 <li><a href="#reservation">Reservation</a></li>
-                <li><a href="#chefs">Our Chefs</a></li>
+                <li><a href="#chefs">Our Restaurants</a></li>
                 <p style="color:white"" align="right"><c:if test="${not empty sessionScope.user}">
-					Hi, <c:out value="${sessionScope['user']}"/> 
+					Hi, <c:out value="${sessionScope.user}"/> 
 					<a href="LogoutController">Logout</a>
 				</c:if></p>
 				
@@ -448,7 +448,6 @@
                         </div>
                         <div class="row">
                           <div class="col-lg-12 col-md-12">
-                            <p>this is a paragraph</p>
                           </div>
                         </div>
                         <div class="row">
@@ -488,35 +487,35 @@
     <div id="chefs" class="parallax pricing">
         <div class="container inner">
 
-            <h2 class="section-title text-center">Our Chefs</h2>
+            <h2 class="section-title text-center">Our Restaurants</h2>
             <p class="lead main text-center">There is no sincerer love than the love of food!</p>
             
             <div class="row text-center chefs">
                 <div class="col-sm-4">
                     <div class="col-wrapper">
                         <div class="icon-wrapper">
-                            <img src="img/chefs/1.jpg">
+                            <img src="img/restaurants/1.jpg">
                         </div>
-                        <h3>Andrei</h3>
-                        <p>Vivamus sagittis lacuson augue laoreet rutrum faucibus dolor auctor. Cras mattis consectetur purus sit amet fermentum ultricies vehicula.</p>
+                        <h3>Guangzhou</h3>
+                        <p>Our newest opened and most luxurious restaurant, and certainly the biggest. All with the same tasty burgers you remember.</p>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="col-wrapper">
                         <div class="icon-wrapper">
-                            <img src="img/chefs/3.jpg">
+                            <img src="img/restaurants/2.jpg">
                         </div>
-                        <h3>Stefan</h3>
-                        <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cum sociis natoque penatibus et magnis dis parturient monte nascetur ultricies vehicula. </p>
+                        <h3>Bucharest</h3>
+                        <p>The place where the Burgerville story started.Our original restaurant - where our dear clients first experienced the care and love which we make our tasty burgers with.</p>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="col-wrapper">
                         <div class="icon-wrapper">
-                            <img src="img/chefs/2.jpg">
+                            <img src="img/restaurants/3.jpg">
                         </div>
-                        <h3>David</h3>
-                        <p>Curabitur blandit matti tempus porttitor. Donec id elit non mi porta ut gravida at eget metus. Consectetur adipiscing elit ultricies vehicula.</p>
+                        <h3>New York</h3>
+                        <p>A restaurant situated in the capital of the world - New York. Enjoy our tasty burgers in the very heart of humankind.</p>
                     </div>
                 </div>
             </div>
@@ -540,12 +539,35 @@
                         <a href="#" class="fa fa-facebook-square tooltipped" title=""></a>
                         <a href="#" class="fa fa-pinterest-square tooltipped" title=""></a>
                         <a href="#" class="fa fa-google-plus-square tooltipped" title=""></a>
-                        <a><c:set var='counter' value="${applicationScope['counter']+1}" scope="application"/>
-                        <c:out value="${applicationScope['counter']}"/>
-            			</a>
                     </div>
                 </div>
             </div>
+            <form class="form form-table" method="post" action="SubscriberController">
+                <div class="form-group">
+                    <h4>Subscribe to our newsletter</h4>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 form-group">
+                        <label class="sr-only" for="email1">email</label>
+                        <input class="form-control hint" type="email" id="email1" name="email" placeholder="Email@domain.com" required="">
+                    </div>
+                </div>
+                <div class="row">
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 form-group">
+                        <input type="checkbox" id="loyalty" name="loyalty">
+                        <label for="loyalty">I want to signup for the loyalty program</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2">
+                        <button type="submit" class="btn btn-danger btn-lg">Subscribe!</button>
+                    </div>
+
+                </div>
+            </form>
         </div>
         <!-- /.container -->
     </footer>

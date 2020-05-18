@@ -13,16 +13,16 @@ import dao.UserDAO;
 import email.MailSender;
 
 /**
- * Servlet implementation class ReservationController
+ * Servlet implementation class SubscriberController
  */
-@WebServlet("/ReservationController")
-public class ReservationController extends HttpServlet {
+@WebServlet("/SubscriberController")
+public class SubscriberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReservationController() {
+    public SubscriberController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,27 +39,23 @@ public class ReservationController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String email = request.getParameter("email");
+		String loyalty = request.getParameter("loyalty");
 		
-		String fName = (String) request.getParameter("first_name");
-		String lName = (String) request.getParameter("last_name");
-		String email = (String) request.getParameter("email");
-		String phone = (String) request.getParameter("phone");
-		String date = (String) request.getParameter("reserv_date");
-		String noGuests = (String) request.getParameter("numb_guests");
-		String timeFrom = (String) request.getParameter("alt_reserv_date");
-		String timeTo = (String) request.getParameter("time");
 		
-		String emailText= "Good afternoon, you have successfuly reserved a table under the name " + fName + " " + lName + ". We are expecting "
-				+ "you at " + timeFrom + " with " + noGuests + " guests. Thank you!" ;
+		String emailText = "Thank you for registering for the loyalty program, you will be contacted shortly with more details. "
+				+ "Have a nice day!";
 		
 		try {
-			UserDAO.getInstance().makeReservation(fName, lName, email, phone, date, noGuests, timeFrom, timeTo);
-			MailSender.sendMail("", "", email, "Reservation made!", emailText); 
+			UserDAO.getInstance().addSubscriber(email, loyalty);
+			if(loyalty.equals("on")) {MailSender.sendMail("", "", "", "Loyalty Program", emailText); }
 			request.getRequestDispatcher("frontPage.jsp").forward(request, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 	}
 
 }

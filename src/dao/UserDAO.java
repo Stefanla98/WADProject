@@ -132,6 +132,20 @@ public class UserDAO {
 		return true;
 	}
 	
+	public boolean addSubscriber(String email, String loyalty) throws SQLException {
+		String sql = "INSERT INTO subscribers (email, loyalty) VALUES (?, ?);";
+		
+		try (Connection connection = DBConnection.getConnection();
+				PreparedStatement prep = connection.prepareStatement(sql);
+			){
+			prep.setString(1, email);
+			prep.setString(2, loyalty);
+			prep.execute();
+		}
+		
+		return true;
+	}
+	
 	
 	public static String getHash(String password) {
 		MessageDigest digest=null;
